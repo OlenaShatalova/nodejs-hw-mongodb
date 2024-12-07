@@ -1,17 +1,15 @@
 import express from 'express';
-import cors from 'cors';
 import pino from 'pino-http';
+import cors from 'cors';
 
+import contactsRouter from './routers/contacts.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
-import { getEnvVar } from './utils/getEnvVar.js';
-import * as contactsServices from './services/contacts.js';
+import { getEnvVar as env} from './utils/getEnvVar.js';
 
-const PORT = getEnvVar('PORT', 3000);
+const PORT = Number(env('PORT', '3000'));
 
 export const setupServer = () => {
   const app = express();
-
-  // app.use(express.json());
 
   app.use(cors());
 
@@ -23,19 +21,7 @@ export const setupServer = () => {
     }),
   );
 
-  // app.get('/', (req, res) => {
-  //   res.json({
-  //     message: 'Hello Olena!',
-  //   });
-  // });
-
-  app.get('/contacts', async (req, res) => {
-    const contacts = await contactsServices.getAllContacts();
-
-    res.json({
-      data: contacts,
-    });
-  });
+  app.use(contactsRouter);
 
   app.use('*', notFoundHandler);
 

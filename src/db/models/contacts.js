@@ -15,7 +15,6 @@ import { Schema, model } from 'mongoose';
   isFavourite: {
     type: Boolean,
     default: false,
-    required: true,
   },
   contactType: {
     type: String,
@@ -27,4 +26,4 @@ import { Schema, model } from 'mongoose';
     timestamps: true,
 });
 
-export const ContactsCollection = model('contact', contactsSchema);
+export const ContactsCollection = model('Contact', contactsSchema);
