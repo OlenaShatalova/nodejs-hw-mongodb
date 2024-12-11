@@ -1,11 +1,25 @@
 import { ContactsCollection } from '../db/models/contacts.js';
 
-export const getAllContacts = async () => {
-  const contacts = await ContactsCollection.find();
-  return contacts;
+export const getAll = () => {
+  return ContactsCollection.find();
 };
 
-export const getContactsById = async (contactId) => {
-  const contact = await ContactsCollection.findById(contactId);
-  return contact;
+export const getById = (contactId) => {
+  return ContactsCollection.findById(contactId);
+};
+
+export const create = (payload) => {
+  return ContactsCollection.create(payload);
+};
+
+export const update = (contactId, payload, options = { new: true }) => {
+  return ContactsCollection.findOneAndUpdate(
+    { _id: contactId },
+    payload,
+    options,
+  );
+};
+
+export const deleteOne = (contactId) => {
+  return ContactsCollection.findOneAndDelete({ _id: contactId });
 };
