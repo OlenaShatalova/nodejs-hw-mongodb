@@ -8,7 +8,6 @@ export const getAll = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully found contacts!',
-    length: contacts.length,
     data: contacts,
   });
 };
