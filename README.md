@@ -1,7 +1,15 @@
 # nodejs-hw-mongodb
 
 Репозиторій для домашнього завдання з використанням MongoDB.  
-Основна реалізація завдання знаходиться на гілці [`hw2-mongodb`](https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw2-mongodb).
+Основна реалізація завдання знаходиться на гілках:
+
+[`hw2-mongodb`](https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw2-mongodb)
+
+https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw3-crud
+
+https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw4-validation
+
+
 
 ## Деплой
 
