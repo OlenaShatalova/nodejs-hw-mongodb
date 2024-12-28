@@ -1,9 +1,26 @@
 import createHttpError from 'http-errors';
 
+import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseSortParams } from '../utils/perseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
+
 import * as contactsServices from '../services/contacts.js';
 
 export const getAll = async (req, res) => {
-  const contacts = await contactsServices.getAll();
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { sortOrder, sortBy } = parseSortParams(req.query);
+  const filter = parseFilterParams(req.query);
+
+  const contacts = await contactsServices.getAll({
+    page,
+    perPage,
+    sortOrder,
+    sortBy,
+    filter,
+  });
+
+  // if (page > contacts.totalPages)
+  // throw createHttpError(400, 'Incorrect page number. Page does not exist.');
 
   res.json({
     status: 200,

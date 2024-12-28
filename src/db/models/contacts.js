@@ -21,8 +21,7 @@ const contactsSchema = new Schema(
       type: String,
       enam: ['work', 'home', 'personal'],
       default: 'personal',
-      required: true,
-    },
+      },
   },
   {
     timestamps: true,
