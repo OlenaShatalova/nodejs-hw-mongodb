@@ -5,7 +5,6 @@ import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 export const getAll = async ({ page, perPage, sortOrder, sortBy, filter }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-
   const contactsQuery = ContactsCollection.find();
 
   if (filter.type) {
@@ -14,6 +13,10 @@ export const getAll = async ({ page, perPage, sortOrder, sortBy, filter }) => {
 
   if (filter.isFavourite !== undefined) {
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
+  }
+
+  if (filter.userId) {
+    contactsQuery.where('userId').equals(filter.userId);
   }
 
   const contactsCount = await ContactsCollection.find()
@@ -34,22 +37,15 @@ export const getAll = async ({ page, perPage, sortOrder, sortBy, filter }) => {
   };
 };
 
-export const getById = (contactId) => {
-  return ContactsCollection.findById(contactId);
+export const getById = (contactId) => ContactsCollection.findById(contactId);
+
+export const getOneContact = (filter) => ContactsCollection.findOne(filter);
+
+export const create = (payload) => ContactsCollection.create(payload);
+
+export const update = (filter, payload, options = { new: true }) => {
+  return ContactsCollection.findOneAndUpdate(filter, payload, options);
 };
 
-export const create = (payload) => {
-  return ContactsCollection.create(payload);
-};
-
-export const update = (contactId, payload, options = { new: true }) => {
-  return ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
-    payload,
-    options,
-  );
-};
-
-export const deleteOne = (contactId) => {
-  return ContactsCollection.findOneAndDelete({ _id: contactId });
-};
+export const deleteOne = (filter) =>
+  ContactsCollection.findOneAndDelete(filter);
