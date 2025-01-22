@@ -28,3 +28,5 @@ const sessionsSchema = new Schema(
 );
 
 export const SessionCollection = model('session', sessionsSchema);
+
+// Change upperCase
