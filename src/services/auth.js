@@ -7,7 +7,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 
 import { UserCollection } from '../db/models/User.js';
-import { SessionCollection } from '../db/models/session.js';
+import { SessionCollection } from '../db/models/Session.js';
 
 import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/users.js';
 import { SMTP, TEMPLATES_DIR } from '../constants/smtp.js';
