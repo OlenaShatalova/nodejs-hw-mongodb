@@ -60,3 +60,23 @@ export const logoutCtrl = async (req, res) => {
 
   res.status(204).send();
 };
+
+export const requestResetEmailCtrl = async (req, res) => {
+  await authServices.requestResetToken(req.body.email);
+
+  res.json({
+    status: 200,
+    message: 'Reset password email has been successfully sent.',
+    data: {},
+  });
+};
+
+export const resetPasswordCtrl = async (req, res) => {
+  await authServices.resetPassword(req.body);
+
+  res.json({
+    status: 200,
+    message: 'Password was successfully reset!',
+    data: {},
+  });
+};

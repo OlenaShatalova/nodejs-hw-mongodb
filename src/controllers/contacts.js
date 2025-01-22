@@ -1,10 +1,11 @@
 import createHttpError from 'http-errors';
 
+import * as contactsServices from '../services/contacts.js';
+
+import { saveFiletoCloidinary } from '../utils/saveFileToCloudinary.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/perseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
-
-import * as contactsServices from '../services/contacts.js';
 
 export const getAll = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -30,8 +31,8 @@ export const getAll = async (req, res) => {
 export const getById = async (req, res) => {
   const { _id: userId } = req.user;
   const { contactId: _id } = req.params;
-  const contact = await contactsServices.getOneContact({ _id, userId });
 
+  const contact = await contactsServices.getOneContact({ _id, userId });
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
@@ -44,8 +45,13 @@ export const getById = async (req, res) => {
 };
 
 export const create = async (req, res) => {
+  let photo;
+  if (req.file) {
+    photo = await saveFiletoCloidinary(req.file);
+  }
+
   const { _id: userId } = req.user;
-  const contact = await contactsServices.create({ ...req.body, userId });
+  const contact = await contactsServices.create({ ...req.body, photo, userId });
 
   res.status(201).json({
     status: 201,
@@ -55,27 +61,31 @@ export const create = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  const { contactId: _id } = req.params;
-  const { _id: userId } = req.user;
+  console.log(req.body);
+  console.log(req.file);
 
-  const contact = await contactsServices.update({ _id, userId }, req.body);
+  // const { contactId: _id } = req.params;
+  // const { _id: userId } = req.user;
+  // const photo = req.file;
 
-  if (!contact) {
-    throw createHttpError(404, 'Contact not found');
-  }
+  // const contact = await contactsServices.update({ _id, userId }, req.body);
 
-  res.json({
-    status: 200,
-    message: 'Successfully patched a contact!',
-    data: contact,
-  });
+  // if (!contact) {
+  //   throw createHttpError(404, 'Contact not found');
+  // }
+
+  // res.json({
+  //   status: 200,
+  //   message: 'Successfully patched a contact!',
+  //   data: contact,
+  // });
 };
 
 export const deleteOne = async (req, res) => {
   const { contactId: _id } = req.params;
   const { _id: userId } = req.user;
 
-  const contact = await contactsServices.deleteOne({_id, userId});
+  const contact = await contactsServices.deleteOne({ _id, userId });
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
