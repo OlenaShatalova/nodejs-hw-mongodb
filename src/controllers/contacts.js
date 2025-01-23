@@ -61,24 +61,28 @@ export const create = async (req, res) => {
 };
 
 export const update = async (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
+  let photo;
+  if (req.file) {
+    photo = await saveFiletoCloidinary(req.file);
+  }
 
-  // const { contactId: _id } = req.params;
-  // const { _id: userId } = req.user;
-  // const photo = req.file;
+  const { contactId: _id } = req.params;
+  const { _id: userId } = req.user;
 
-  // const contact = await contactsServices.update({ _id, userId }, req.body);
+  const contact = await contactsServices.update(
+    { _id, userId },
+    { ...req.body, photo },
+  );
 
-  // if (!contact) {
-  //   throw createHttpError(404, 'Contact not found');
-  // }
+  if (!contact) {
+    throw createHttpError(404, 'Contact not found');
+  }
 
-  // res.json({
-  //   status: 200,
-  //   message: 'Successfully patched a contact!',
-  //   data: contact,
-  // });
+  res.json({
+    status: 200,
+    message: 'Successfully patched a contact!',
+    data: contact,
+  });
 };
 
 export const deleteOne = async (req, res) => {
