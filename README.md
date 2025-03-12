@@ -9,7 +9,13 @@
 
 [`hw4-validation`](https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw4-validation)
 
+[`hw5-auth`](https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw5-auth)
 
+[`hw6-email-and-images`](https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw6-email-and-images)
+
+[`hw7-swagger`](https://github.com/OlenaShatalova/nodejs-hw-mongodb/tree/hw7-swagger)
+
+---
 ## Деплой
 
 Задеплоєний проєкт доступний за посиланням: [Render.com](https://nodejs-hw-mongodb-i2xy.onrender.com).
